@@ -1,12 +1,15 @@
 {
+  "private": true,
   "name": "metsur",
-  "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.15.6",
+    "prisma": "^4.11.0",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.2"
+  }
 }
