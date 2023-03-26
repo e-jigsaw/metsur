@@ -13,8 +13,4 @@ export default NextAuth({
     }),
   ],
   adapter: PrismaAdapter(prisma),
-  secret: "secret",
-  session: {
-    strategy: "database",
-  },
 });
