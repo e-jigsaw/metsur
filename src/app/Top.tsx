@@ -1,5 +1,7 @@
 "use client";
 import { SessionProvider, useSession } from "next-auth/react";
+import Link from "next/link";
+import { Uploader } from "./Uploader";
 
 export const Top = () => {
   return (
@@ -10,7 +12,19 @@ export const Top = () => {
 };
 
 const Inner = () => {
-  const { data, status } = useSession();
-  console.log(data, status);
-  return null;
+  const { status } = useSession();
+  if (status === "authenticated") {
+    return (
+      <div>
+        <Uploader></Uploader>
+        <div>
+          <Link href="/settings">settings</Link>
+        </div>
+      </div>
+    );
+  }
+  if (status === "unauthenticated") {
+    return <a href="/signin">sign in</a>;
+  }
+  return <div>loading...</div>;
 };
