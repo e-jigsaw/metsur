@@ -11,11 +11,12 @@ datasource db {
 }
 
 model Image {
-  id       Int      @id @default(autoincrement())
-  picsurId String   @unique
+  id       Int       @id @default(autoincrement())
+  picsurId String    @unique
   tags     String[]
   userId   String
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  created  DateTime? @default(now())
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {
