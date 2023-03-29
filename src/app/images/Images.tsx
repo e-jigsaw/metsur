@@ -13,7 +13,7 @@ const Take = 20;
 export const Images = () => {
   const search = useSearchParams();
   const skip = useMemo(() => parseInt(search?.get("skip") ?? "0"), [search]);
-  const { data } = useSwr<Envelope<ImageType[]>>(
+  const { data, mutate } = useSwr<Envelope<ImageType[]>>(
     `/api/images/list?skip=${skip}&take=${Take}`,
     fetcher
   );
@@ -29,10 +29,20 @@ export const Images = () => {
           <button className="p-1 border">next</button>
         </Link>
       </div>
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-5 gap-2">
         {data?.payload.map((image) => (
-          <Image key={image.id} image={image}></Image>
+          <Image key={image.id} image={image} mutate={mutate}></Image>
         ))}
+      </div>
+      <div>
+        {skip > 0 && (
+          <Link href={`/images?skip=${skip - Take}`}>
+            <button className="p-1 border">prev</button>
+          </Link>
+        )}
+        <Link href={`/images?skip=${skip + Take}`}>
+          <button className="p-1 border">next</button>
+        </Link>
       </div>
     </div>
   );

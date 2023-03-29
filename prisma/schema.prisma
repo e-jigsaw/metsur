@@ -16,6 +16,7 @@ model Image {
   tags     String[]
   userId   String
   created  DateTime? @default(now())
+  rate     Int?      @default(5)
   user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
