@@ -14,15 +14,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
     if (user) {
+      const orderBy: ({ id: "desc" } | { rate: "desc" })[] = [
+        {
+          id: "desc",
+        },
+      ];
+      if (req.query.rate) {
+        orderBy.unshift({
+          rate: "desc",
+        });
+      }
       const images = await prisma.image.findMany({
         where: {
           userId: user.id,
         },
         skip: parseInt((req.query.skip as string) ?? 0),
         take: parseInt((req.query.take as string) ?? 20),
-        orderBy: {
-          id: "desc",
-        },
+        orderBy,
       });
       res.status(200);
       return res.json({

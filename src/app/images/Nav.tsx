@@ -10,11 +10,19 @@ export const Nav = () => {
   return (
     <div className="flex justify-center gap-4 mb-2">
       {skip > 0 && (
-        <Link href={`/images?skip=${skip - Take}`}>
+        <Link
+          href={`/images?skip=${skip - Take}${
+            search?.get("rate") ? "&rate=true" : ""
+          }`}
+        >
           <button className="p-1 border text-4xl">prev</button>
         </Link>
       )}
-      <Link href={`/images?skip=${skip + Take}`}>
+      <Link
+        href={`/images?skip=${skip + Take}${
+          search?.get("rate") ? "&rate=true" : ""
+        }`}
+      >
         <button className="p-1 border text-4xl">next</button>
       </Link>
     </div>

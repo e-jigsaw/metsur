@@ -5,7 +5,6 @@ import { Envelope, fetcher } from "lib/fetcher";
 import useSwr from "swr";
 import { Image } from "./Image";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { useMemo } from "react";
 import { Nav } from "./Nav";
 
@@ -15,7 +14,9 @@ export const Images = () => {
   const search = useSearchParams();
   const skip = useMemo(() => parseInt(search?.get("skip") ?? "0"), [search]);
   const { data, mutate } = useSwr<Envelope<ImageType[]>>(
-    `/api/images/list?skip=${skip}&take=${Take}`,
+    `/api/images/list?skip=${skip}&take=${Take}${
+      search?.get("rate") ? "&rate=true" : ""
+    }`,
     fetcher
   );
   return (
