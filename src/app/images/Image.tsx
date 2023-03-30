@@ -26,10 +26,6 @@ export const Image: React.FC<{
   );
   return (
     <div>
-      <img
-        src={`${process.env.NEXT_PUBLIC_PICSUR_ENDPOINT}/i/${image.picsurId}.webp`}
-      ></img>
-      <div>{format(new Date(image.created ?? 0), "yyyy/MM/dd")}</div>
       <div>
         <input
           value={tags}
@@ -49,6 +45,10 @@ export const Image: React.FC<{
           </button>
         ))}
       </div>
+      <img
+        src={`${process.env.NEXT_PUBLIC_PICSUR_ENDPOINT}/i/${image.picsurId}.webp`}
+      ></img>
+      <div>{format(new Date(image.created ?? 0), "yyyy/MM/dd")}</div>
     </div>
   );
 };

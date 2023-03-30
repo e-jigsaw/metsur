@@ -7,8 +7,9 @@ import { Image } from "./Image";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useMemo } from "react";
+import { Nav } from "./Nav";
 
-const Take = 20;
+export const Take = 20;
 
 export const Images = () => {
   const search = useSearchParams();
@@ -19,31 +20,13 @@ export const Images = () => {
   );
   return (
     <div>
-      <div>
-        {skip > 0 && (
-          <Link href={`/images?skip=${skip - Take}`}>
-            <button className="p-1 border">prev</button>
-          </Link>
-        )}
-        <Link href={`/images?skip=${skip + Take}`}>
-          <button className="p-1 border">next</button>
-        </Link>
-      </div>
+      <Nav></Nav>
       <div className="grid grid-cols-5 gap-2">
         {data?.payload.map((image) => (
           <Image key={image.id} image={image} mutate={mutate}></Image>
         ))}
       </div>
-      <div>
-        {skip > 0 && (
-          <Link href={`/images?skip=${skip - Take}`}>
-            <button className="p-1 border">prev</button>
-          </Link>
-        )}
-        <Link href={`/images?skip=${skip + Take}`}>
-          <button className="p-1 border">next</button>
-        </Link>
-      </div>
+      <Nav></Nav>
     </div>
   );
 };
