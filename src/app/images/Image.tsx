@@ -1,15 +1,15 @@
 import { Image as ImageType } from "@prisma/client";
 import format from "date-fns/format";
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import clsx from "clsx";
 import { KeyedMutator } from "swr";
 import { Envelope } from "lib/fetcher";
+import Link from "next/link";
 
 export const Image: React.FC<{
   image: ImageType;
   mutate: KeyedMutator<Envelope<ImageType[]>>;
 }> = ({ image, mutate }) => {
-  const [tags, setTags] = useState(image.tags.join(","));
   const rateHandler = useCallback(
     (index: number) => async () => {
       const res = await fetch("/api/images/rate", {
@@ -27,12 +27,11 @@ export const Image: React.FC<{
   return (
     <div>
       <div>
-        <input
-          value={tags}
-          onChange={(event) => setTags(event.currentTarget.value)}
-          className="border"
-        ></input>
-        <button className="border">save</button>
+        {image.tags.map((tag) => (
+          <Link href={`/tags/${tag}`} key={tag}>
+            <button className="border px-2">{tag}</button>
+          </Link>
+        ))}
       </div>
       <div className="grid grid-cols-5">
         {[...new Array(10)].map((_, i) => (
