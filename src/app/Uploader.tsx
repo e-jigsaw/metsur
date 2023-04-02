@@ -2,8 +2,10 @@
 import useSwr from "swr";
 import { useState } from "react";
 import { fetcher } from "lib/fetcher";
+import { useRouter } from "next/navigation";
 
 export const Uploader = () => {
+  const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const { data } = useSwr("/api/keys/me", fetcher);
   return (
@@ -36,10 +38,18 @@ export const Uploader = () => {
             );
             const json = await res.json();
             if (json.data.id) {
-              console.log(json.data.id);
+              const res1 = await fetch(`/api/images/create`, {
+                method: "POST",
+                body: JSON.stringify({
+                  id: json.data.id,
+                }),
+              });
+              const json1 = await res1.json();
+              router.push(`/image/${json1.payload.id}`);
             }
           }
         }}
+        className="border p-1 px-2"
       >
         create
       </button>
