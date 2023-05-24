@@ -105,6 +105,12 @@ export const Image = () => {
     undefined,
     [router, skip]
   );
+  const directEdit = useCallback(() => {
+    const next = window.prompt("edit...", tags.join(","));
+    if (next) {
+      setTags(next?.split(","));
+    }
+  }, [tags]);
   if (!data) {
     return <div>loading...</div>;
   }
@@ -138,6 +144,7 @@ export const Image = () => {
         </div>
       </div>
       <div>{tags.join(",")}</div>
+      <button onClick={directEdit}>Edit</button>
     </div>
   );
 };
