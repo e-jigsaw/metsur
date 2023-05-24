@@ -23,6 +23,7 @@ const Inner = () => {
           <Link href="/images?rate=true" className="border border-solid p-1">
             images by rate
           </Link>
+          <Link href="/images/detail">tagging</Link>
         </div>
         <Uploader></Uploader>
         <div>
