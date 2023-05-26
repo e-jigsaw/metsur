@@ -13,7 +13,7 @@ export const Uploader = () => {
       <ul>
         {results.map((res) => (
           <li key={res}>
-            <Link href={`/images/${res}`}>{res}</Link>
+            <Link href={`/image/${res}`}>{res}</Link>
           </li>
         ))}
       </ul>
